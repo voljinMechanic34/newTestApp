@@ -23,7 +23,10 @@ default: &default
 
 development:
   <<: *default
-  database: newTestApp_development
+  database: PostsDb
+  username: postgres
+  password: fktrcfylh34hec
+
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -80,6 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: newTestApp_production
-  username: newTestApp
-  password: <%= ENV['NEWTESTAPP_DATABASE_PASSWORD'] %>
+  database: postgres
+  username: postgres
+  password: fktrcfylh34hec

@@ -1,0 +1,31 @@
+<h2>Задачи</h2>
+<% @proj.each do |product| %>  
+	<h3><%= product.title %></h3> 
+   <ul>
+	  <% @todos.where(id_project: product.id).each do |td| %>   
+	   
+  			<li><%= td.text %></li>
+	  <% end %>  
+	</ul>  
+<% end %>   
+
+<h3>Новая задача</h3>
+<%= link_to new_post_path,remote:true,id:"new_link2" do %>
+   <%= image_tag "addTodoIcon.png", class: "some css class here" %>
+<% end %>
+
+
+
+
+
+<div id="without_button" style="display: none">
+<%= form_for :post1, url: posts_path,:method=> 'post', :html => {:id=>'form_id'} do |f| %>
+	<p><%= f.text_field :text, placeholder: "Название задачи.." %></p>
+	<%= f.collection_select :category, Project.all, :id, :title, id: "1234"  %>
+	<p>
+		<%= link_to "ОТМЕНА",posts_path, remote: true, id:"new_link"  %>
+		<%= link_to 'ОК', "#", :onclick => "$('#form_id').submit()" %>
+			
+	</p>
+	</div>
+<% end %> 
