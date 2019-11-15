@@ -83,6 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: postgres
+  database: PostsDb
   username: postgres
   password: fktrcfylh34hec
