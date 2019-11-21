@@ -31,7 +31,7 @@ class PostsController < ApplicationController
 		todo_update.isCompleted = @todo_isCompleted
 		todo_update.save
 		
-		Rails.logger.info "Some debugging info #{@id_todo}"
+		
 
 	end
 	def getForm
