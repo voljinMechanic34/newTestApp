@@ -1,32 +1,90 @@
 <%= stylesheet_link_tag "main" %>
-<h2>Задачи</h2>
-<% @proj.each do |product| %>  
-	<h3><%= product.title %></h3> 
-   <ul>
-	  <% @todos.where(id_project: product.id).each do |td| %>   
-	   
-  			<li><%= td.text %></li>
-	  <% end %>  
-	</ul>  
-<% end %>   
 
-<h3>Новая задача</h3>
-<%= link_to new_post_path,remote:true,id:"new_link2" do %>
-   <%= image_tag "addTodoIcon.png", class: "some css class here" %>
+<div id="main">
+
+
+<div id="AlertDiv"><h1>Задачи</h1>
+	<%= link_to new_post_path,remote:true,id:"new_link2" do %>
+   <%= image_tag "addTodoIcon.png", class: "image_class" %>
 <% end %>
+</div>
 
+<div id="ab">
+<% @proj.each do |product| %>  
+<div id="showTodos">
+	<h3><%= product.title %></h3> 
+	<div id="line">
+	</div>
+   <dl>
+	  <% @todos.where(id_project: product.id).each do |td| %>   
+	  <%= link_to getForm_url, remote: true,:class => 'specific_service', 
+        :data => {:id => td.id},:onclick => 
+        "	var id = $(this).data('id');
+        	
+        	
+        	var thisInput  = $(this).find('input[type=checkbox]');
+
+        	var checked = thisInput.is(':checked');
+        	thisInput[0].checked = (checked) ?  false : true;
+        
+        	var latDisplay = document.getElementById('id_todo');
+        	latDisplay.value = id;
+        	var latDisplay = document.getElementById('todo_completed');
+        	latDisplay.value = (checked) ?  false : true;
+        	$('#form_post_id').submit();" do %>
+  		<div id="my-div">
+		<%= form_for :article, url: postForm_url,:method=> 'post',remote:true, :html => {:id=>'form_post_id'}, class: "nifty_form" do |f| %>
+				<%=hidden_field_tag :id_todo %>
+				<%=hidden_field_tag :todo_completed %>
+	  			<dd>
+	  		
+  				<div class="row"><input type="checkbox" value="<%=td.id %>" id="<%=td.id %>" disabled="true" > <span id="span"><%= td.text %></span></div>
+  				</dd>
+  				<% end %>
+  				</div>
+  				<script type="application/javascript">
+	  				var isCompleted = <%=td.isCompleted%>;
+	  				var overall = document.querySelector('input[id="<%=td.id %>"]');
+					
+	  				if  (isCompleted == true){
+	  					overall.checked = true;
+	  				} else {
+	  					overall.checked = false;
+	  				}
+
+			</script>
+  				<% end %>
+  				<% end %>
+	</dl>
+
+	</div>
+
+<% end %>   
+</div>
 
 
 
 
 <div id="without_button" style="display: none">
+<h3>Новая задача</h3>
+<div id="line2">
+	</div>
 <%= form_for :post1, url: posts_path,:method=> 'post', :html => {:id=>'form_id'} do |f| %>
-	<p><%= f.text_field :text, placeholder: "Название задачи.." %></p>
-	<%= f.collection_select :category, Project.all, :id, :title, id: "1234"  %>
+	<%= f.text_field :text, placeholder: "Название задачи.." , class: 'text_field'%>
+	
+<%= f.collection_select(:category, Project.all, :id, :title, { include_blank: "Категория" }, { class: "select_categ",id:"selec" }) %>
 	<p>
 		<%= link_to "ОТМЕНА",posts_path, remote: true, id:"new_link"  %>
-		<%= link_to 'ОК', "#", :onclick => "$('#form_id').submit()" %>
-			
+		
+		<%= link_to 'ОК', "#", :onclick => "$('#form_id').submit()",id:"new_link_ok" %>
+	
 	</p>
 	</div>
 <% end %> 
+<script type="application/javascript">
+            $(document).ready(function() { 
+            	$('.select_categ').select2();
+
+            });
+      </script>
+</div>

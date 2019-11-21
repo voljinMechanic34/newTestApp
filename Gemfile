@@ -8,6 +8,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'select2-rails'
 gem 'rails', '~> 5.1.7'
 gem 'remotipart', '~> 1.2'
 # Use postgresql as the database for Active Record

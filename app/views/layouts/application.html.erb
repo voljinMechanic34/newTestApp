@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-
+<%= stylesheet_link_tag "main" %>
 <html>
+
   <head>
   	
     <title>NewTestApp</title>
@@ -11,5 +12,10 @@
 
   <body>
     <%= yield %>
+    <script type="application/javascript">
+            $(document).ready(function() { $(#selec).select2(); });
+      </script>
+   
   </body>
+
 </html>

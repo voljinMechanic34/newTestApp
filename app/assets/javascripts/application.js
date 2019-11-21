@@ -11,9 +11,12 @@
 // about supported directives.
 //
 
-//= require jquery.js
+//=require_self
+
+//= require_tree 
+//= require jquery
 
 //= require jquery_ujs
-//= require_tree .
+//= require select2
 
-
+  $(".select_categ").select2();
